@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar.tsx";
+import Sidebar from "../islands/Sidebar.tsx";
 import { EditIcon, DeleteIcon } from "../components/Icons.tsx";
 
 export default function Categories() {

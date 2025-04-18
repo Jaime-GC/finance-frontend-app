@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar.tsx";
+import Sidebar from "../islands/Sidebar.tsx";
 import { DownIcon } from "../components/Icons.tsx";
 
 

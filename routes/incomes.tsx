@@ -1,4 +1,4 @@
-import Sidebar from "../components/Sidebar.tsx";
+import Sidebar from "../islands/Sidebar.tsx";
 import { EditIcon, DeleteIcon } from "../components/Icons.tsx";
 
 export default function Incomes() {
@@ -43,24 +43,31 @@ export default function Incomes() {
         {/* Income table */}
         <div class="bg-gray-100 rounded-xl shadow-[3px_3px_6px_#d1d9e6,-2px_-2px_6px_#ffffff] p-6">
           <div class="overflow-x-auto">
-            <table class="w-full">
+            <table class="w-full table-fixed">
+              <colgroup>
+                <col class="w-[25%]" />
+                <col class="w-[25%]" />
+                <col class="w-[15%]" />
+                <col class="w-[15%]" />
+                <col class="w-[20%]" />
+              </colgroup>
               <thead>
                 <tr class="border-b border-gray-300">
-                  <th class="py-3 px-4 text-left font-medium text-navy">Description</th>
-                  <th class="py-3 px-4 text-left font-medium text-navy">Category</th>
-                  <th class="py-3 px-4 text-right font-medium text-navy">Amount</th>
-                  <th class="py-3 px-4 text-left font-medium text-navy">Date</th>
-                  <th class="py-3 px-4 text-center font-medium text-navy">Actions</th>
+                  <th class="py-3 px-6 text-left font-medium text-navy">Description</th>
+                  <th class="py-3 px-6 text-left font-medium text-navy">Category</th>
+                  <th class="py-3 px-6 text-right font-medium text-navy">Amount</th>
+                  <th class="py-3 px-6 text-left font-medium text-navy">Date</th>
+                  <th class="py-3 px-6 text-right font-medium text-navy">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {incomes.map((income) => (
                   <tr key={income.id} class="border-b border-gray-200 hover:bg-gray-50">
-                    <td class="py-3 px-4">{income.description}</td>
-                    <td class="py-3 px-4">{income.category}</td>
-                    <td class="py-3 px-4 text-right text-green-600">+${income.amount}</td>
-                    <td class="py-3 px-4">{income.date}</td>
-                    <td class="py-3 px-4 text-center">
+                    <td class="py-4 px-6">{income.description}</td>
+                    <td class="py-4 px-6">{income.category}</td>
+                    <td class="py-4 px-6 text-right text-green-600">+${income.amount}</td>
+                    <td class="py-4 px-6">{income.date}</td>
+                    <td class="py-4 px-6 text-right">
                       <button class="text-navy hover:text-blue-700 p-1 mr-2 rounded-full hover:bg-gray-200 transition-colors">
                         <EditIcon />
                       </button>

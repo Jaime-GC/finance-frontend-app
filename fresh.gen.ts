@@ -10,7 +10,7 @@ import * as $incomes from "./routes/incomes.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $reports from "./routes/reports.tsx";
 import * as $users from "./routes/users.tsx";
-
+import * as $Sidebar from "./islands/Sidebar.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -24,7 +24,9 @@ const manifest = {
     "./routes/reports.tsx": $reports,
     "./routes/users.tsx": $users,
   },
-  islands: {},
+  islands: {
+    "./islands/Sidebar.tsx": $Sidebar,
+  },
   baseUrl: import.meta.url,
 } satisfies Manifest;
 
