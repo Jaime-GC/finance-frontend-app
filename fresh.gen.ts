@@ -4,7 +4,12 @@
 
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
+import * as $categories from "./routes/categories.tsx";
+import * as $expenses from "./routes/expenses.tsx";
+import * as $incomes from "./routes/incomes.tsx";
 import * as $index from "./routes/index.tsx";
+import * as $reports from "./routes/reports.tsx";
+import * as $users from "./routes/users.tsx";
 
 import type { Manifest } from "$fresh/server.ts";
 
@@ -12,7 +17,12 @@ const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
+    "./routes/categories.tsx": $categories,
+    "./routes/expenses.tsx": $expenses,
+    "./routes/incomes.tsx": $incomes,
     "./routes/index.tsx": $index,
+    "./routes/reports.tsx": $reports,
+    "./routes/users.tsx": $users,
   },
   islands: {},
   baseUrl: import.meta.url,
