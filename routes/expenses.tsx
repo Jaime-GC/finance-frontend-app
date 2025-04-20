@@ -1,8 +1,9 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Sidebar from "../islands/Sidebar.tsx";
-import { NewButton } from "../islands/NewButton.tsx"
-import { EditIcon, DeleteIcon } from "../components/Icons.tsx";
+import { NewButton } from "../islands/NewButton.tsx";
 import axios from "npm:axios";
+import { EditItemModal } from "../islands/EditItemModal.tsx";
+import { DeleteButton } from "../islands/DeleteButton.tsx";
 
 interface Expense {
   id: number;
@@ -89,6 +90,7 @@ export default function Expenses({ data }: PageProps<{ expenses: Expense[] }>) {
                   <th class="py-3 px-6 text-right font-medium text-navy">Actions</th>
                 </tr>
               </thead>
+
               <tbody>
                 {expenses.map((expense) => (
                   <tr key={expense.id} class="border-b border-gray-200 hover:bg-gray-50">
@@ -97,17 +99,23 @@ export default function Expenses({ data }: PageProps<{ expenses: Expense[] }>) {
                     <td class="py-4 px-6 text-right text-red-600">-${expense.amount}</td>
                     <td class="py-4 px-6">{expense.date}</td>
                     <td class="py-4 px-6">{expense.user.name}</td>
-                    <td class="py-4 px-6 text-right">
-                      <button class="text-navy hover:text-blue-700 p-1 mr-2 rounded-full hover:bg-gray-200 transition-colors">
-                        <EditIcon />
-                      </button>
-                      <button class="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-gray-200 transition-colors">
-                        <DeleteIcon />
-                      </button>
+                    <td class="py-4 px-6 text-right flex justify-end space-x-2">
+                      <EditItemModal
+                        resource="expenses"
+                        item={expense}
+                        fields={["description", "amount", "date"]} // campos a editar
+                        onSuccess={() => window.location.reload()}
+                      />
+                      <DeleteButton
+                        resource="expenses"
+                        id={expense.id}
+                        onSuccess={() => window.location.reload()}
+                      />
                     </td>
                   </tr>
                 ))}
               </tbody>
+              
             </table>
           </div>
         </div>

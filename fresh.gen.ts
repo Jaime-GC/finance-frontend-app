@@ -10,6 +10,8 @@ import * as $incomes from "./routes/incomes.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $reports from "./routes/reports.tsx";
 import * as $users from "./routes/users.tsx";
+import * as $DeleteButton from "./islands/DeleteButton.tsx";
+import * as $EditItemModal from "./islands/EditItemModal.tsx";
 import * as $NewButton from "./islands/NewButton.tsx";
 import * as $NewCategoryModal from "./islands/NewCategoryModal.tsx";
 import * as $NewUserModal from "./islands/NewUserModal.tsx";
@@ -28,6 +30,8 @@ const manifest = {
     "./routes/users.tsx": $users,
   },
   islands: {
+    "./islands/DeleteButton.tsx": $DeleteButton,
+    "./islands/EditItemModal.tsx": $EditItemModal,
     "./islands/NewButton.tsx": $NewButton,
     "./islands/NewCategoryModal.tsx": $NewCategoryModal,
     "./islands/NewUserModal.tsx": $NewUserModal,

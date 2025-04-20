@@ -1,8 +1,9 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Sidebar from "../islands/Sidebar.tsx";
-import { EditIcon, DeleteIcon } from "../components/Icons.tsx";
 import axios from "npm:axios";
 import { NewUserModal } from "../islands/NewUserModal.tsx";
+import { DeleteButton } from "../islands/DeleteButton.tsx";
+import { EditItemModal } from "../islands/EditItemModal.tsx";
 
 interface User {
   id: number;
@@ -51,17 +52,22 @@ export default function Users({ data }: PageProps<{ users: User[] }>) {
 
               {/* Cuerpo de la tabla */}
               <tbody>
-                {users.map((u) => (
-                  <tr key={u.id} class="border-b border-gray-200 hover:bg-gray-50">
-                    <td class="py-3 px-4">{u.name}</td>
-                    <td class="py-3 px-4">{u.email}</td>
+                {users.map((user) => (
+                  <tr key={user.id} class="border-b border-gray-200 hover:bg-gray-50">
+                    <td class="py-3 px-4">{user.name}</td>
+                    <td class="py-3 px-4">{user.email}</td>
                     <td class="py-3 px-4 text-right">
-                      <button class="text-navy hover:text-blue-700 p-1 mr-2 rounded-full hover:bg-gray-200 transition-colors">
-                        <EditIcon />
-                      </button>
-                      <button class="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-gray-200 transition-colors">
-                        <DeleteIcon />
-                      </button>
+                      <EditItemModal
+                        resource="users"
+                        item={user}
+                        fields={["name", "email"]}
+                        onSuccess={() => window.location.reload()}
+                      />
+                      <DeleteButton
+                        resource="users"
+                        id={user.id}
+                        onSuccess={() => window.location.reload()}
+                      />
                     </td>
                   </tr>
                 ))}

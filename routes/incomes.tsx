@@ -1,8 +1,10 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Sidebar from "../islands/Sidebar.tsx";
-import {NewButton} from "../islands/NewButton.tsx";
+import { NewButton } from "../islands/NewButton.tsx";
 import { EditIcon, DeleteIcon } from "../components/Icons.tsx";
 import axios from "npm:axios";
+import { EditItemModal } from "../islands/EditItemModal.tsx";
+import { DeleteButton } from "../islands/DeleteButton.tsx";
 
 interface Income {
   id: number;
@@ -102,12 +104,17 @@ export default function Incomes({ data }: PageProps<{ incomes: Income[] }>) {
                     <td class="py-4 px-6">{income.date}</td>
                     <td class="py-4 px-6">{income.user?.name ?? "-"}</td>
                     <td class="py-4 px-6 text-right">
-                    <button class="text-navy hover:text-blue-700 p-1 mr-2 rounded-full hover:bg-gray-200 transition-colors">
-                    <EditIcon />
-                      </button>
-                      <button class="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-gray-200 transition-colors">
-                        <DeleteIcon />
-                      </button>
+                      <EditItemModal
+                        resource="incomes"
+                        item={income}
+                        fields={["description", "amount", "date"]}
+                        onSuccess={() => window.location.reload()}
+                      />
+                      <DeleteButton
+                        resource="incomes"
+                        id={income.id}
+                        onSuccess={() => window.location.reload()}
+                      />
                     </td>
                   </tr>
                 ))}

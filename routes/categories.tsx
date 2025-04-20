@@ -1,8 +1,9 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Sidebar from "../islands/Sidebar.tsx";
-import { EditIcon, DeleteIcon } from "../components/Icons.tsx";
 import axios from "npm:axios";
 import { NewCategoryModal } from "../islands/NewCategoryModal.tsx";
+import { DeleteButton } from "../islands/DeleteButton.tsx";
+import { EditItemModal } from "../islands/EditItemModal.tsx";
 
 interface Category {
   id: number;
@@ -45,16 +46,21 @@ export default function Categories({ data }: PageProps<{ categories: Category[] 
               </thead>
 
               <tbody>
-                {categories.map((c) => (
-                  <tr key={c.id} class="border-b border-gray-200 hover:bg-gray-50">
-                    <td class="py-3 px-4">{c.name}</td>
+                {categories.map((category) => (
+                  <tr key={category.id} class="border-b border-gray-200 hover:bg-gray-50">
+                    <td class="py-3 px-4">{category.name}</td>
                     <td class="py-3 px-4 text-right">
-                      <button class="text-navy hover:text-blue-700 p-1 mr-2 rounded-full hover:bg-gray-200 transition-colors">
-                        <EditIcon />
-                      </button>
-                      <button class="text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-gray-200 transition-colors">
-                        <DeleteIcon />
-                      </button>
+                      <EditItemModal
+                        resource="categories"
+                        item={category}
+                        fields={["name"]}
+                        onSuccess={() => window.location.reload()}
+                      />
+                      <DeleteButton
+                        resource="categories"
+                        id={category.id}
+                        onSuccess={() => window.location.reload()}
+                      />
                     </td>
                   </tr>
                 ))}
