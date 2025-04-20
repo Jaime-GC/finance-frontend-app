@@ -6,6 +6,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "autoprefixer": "^10.4.17",
+    "axios": "^1.4.0",
     "cssnano": "^6.0.3",
     "finance-frontend-app": "file:",
     "postcss": "^8.4.35",
