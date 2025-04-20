@@ -64,7 +64,7 @@ export const NewButton: FunctionalComponent<NewItemModalProps> = ({
                 <input
                   type="number"
                   value={userId}
-                  onInput={(e: any) => setUserId(e.currentTarget.value)}
+                  onInput={(e) => setUserId(e.currentTarget.value)}
                   required
                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring"
                 />
@@ -75,7 +75,7 @@ export const NewButton: FunctionalComponent<NewItemModalProps> = ({
                 <input
                   type="text"
                   value={category}
-                  onInput={(e: any) => setCategory(e.currentTarget.value)}
+                  onInput={(e) => setCategory(e.currentTarget.value)}
                   required
                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring"
                 />
@@ -86,7 +86,7 @@ export const NewButton: FunctionalComponent<NewItemModalProps> = ({
                 <input
                   type="text"
                   value={description}
-                  onInput={(e: any) => setDescription(e.currentTarget.value)}
+                  onInput={(e) => setDescription(e.currentTarget.value)}
                   required
                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring"
                 />
@@ -97,7 +97,7 @@ export const NewButton: FunctionalComponent<NewItemModalProps> = ({
                 <input
                   type="number"
                   value={amount}
-                  onInput={(e: any) => setAmount(e.currentTarget.value)}
+                  onInput={(e) => setAmount(e.currentTarget.value)}
                   required
                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring"
                 />
@@ -108,7 +108,7 @@ export const NewButton: FunctionalComponent<NewItemModalProps> = ({
                 <input
                   type="date"
                   value={date}
-                  onInput={(e: any) => setDate(e.currentTarget.value)}
+                  onInput={(e) => setDate(e.currentTarget.value)}
                   required
                   class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring"
                 />
@@ -126,7 +126,7 @@ export const NewButton: FunctionalComponent<NewItemModalProps> = ({
                   class="px-4 py-2 rounded-lg bg-navy text-white hover:bg-blue-900 transition"
                 >Save</button>
               </div>
-              
+
             </form>
           </div>
         </div>

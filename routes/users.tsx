@@ -2,6 +2,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import Sidebar from "../islands/Sidebar.tsx";
 import { EditIcon, DeleteIcon } from "../components/Icons.tsx";
 import axios from "npm:axios";
+import { NewUserModal } from "../islands/NewUserModal.tsx";
 
 interface User {
   id: number;
@@ -20,7 +21,7 @@ export const handler: Handlers<{ users: User[] }> = {
   },
 };
 
-export default function Users({ data }: PageProps<{ users: User[] }>,) {
+export default function Users({ data }: PageProps<{ users: User[] }>) {
   const { users } = data;
 
   return (
@@ -31,22 +32,14 @@ export default function Users({ data }: PageProps<{ users: User[] }>,) {
 
         <div class="flex justify-between items-center mb-8">
           <h1 class="text-2xl font-bold text-navy">Users</h1>
-
-          <button class="bg-gray-100 rounded-xl px-5 py-3 text-navy font-medium text-lg transition-all
-                 shadow-[3px_3px_6px_#d1d9e6,-2px_-2px_6px_#ffffff] hover:shadow-[inset_3px_3px_6px_#d1d9e6,inset_-2px_-2px_6px_#ffffff]">
-            <span class="flex items-center">
-              <svg class="h-5 w-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-              New User
-            </span>
-          </button>
+          <NewUserModal onSuccess={() => window.location.reload()} />
         </div>
-
-        {/* Tabla de usuarios */}
-        <div class="bg-gray-100 rounded-xl shadow-[3px_3px_6px_#d1d9e6,-2px_-2px_6px_#ffffff] p-6 flex-1 flex flex-col overflow-hidden">
+        <div class="bg-gray-100 rounded-xl shadow-[3px_3px_6px_#d1d9e6,-2px_-2px_6px_#ffffff]
+                    p-6 flex-1 flex flex-col overflow-hidden">
           <div class="overflow-y-auto flex-1 custom-scrollbar">
+            
             <table class="w-full">
+
               {/* Encabezado de la tabla */}
               <thead class="sticky top-0 bg-gray-100 z-10">
                 <tr class="border-b border-gray-300">
@@ -73,7 +66,9 @@ export default function Users({ data }: PageProps<{ users: User[] }>,) {
                   </tr>
                 ))}
               </tbody>
+
             </table>
+            
           </div>
         </div>
       </main>

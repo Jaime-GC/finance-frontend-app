@@ -11,6 +11,8 @@ import * as $index from "./routes/index.tsx";
 import * as $reports from "./routes/reports.tsx";
 import * as $users from "./routes/users.tsx";
 import * as $NewButton from "./islands/NewButton.tsx";
+import * as $NewCategoryModal from "./islands/NewCategoryModal.tsx";
+import * as $NewUserModal from "./islands/NewUserModal.tsx";
 import * as $Sidebar from "./islands/Sidebar.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
@@ -27,6 +29,8 @@ const manifest = {
   },
   islands: {
     "./islands/NewButton.tsx": $NewButton,
+    "./islands/NewCategoryModal.tsx": $NewCategoryModal,
+    "./islands/NewUserModal.tsx": $NewUserModal,
     "./islands/Sidebar.tsx": $Sidebar,
   },
   baseUrl: import.meta.url,
