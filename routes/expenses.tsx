@@ -21,22 +21,74 @@ interface Expense {
   };
 }
 
-export const handler: Handlers<{ expenses: Expense[] }> = {
+interface ExpensesData {
+  expenses: Expense[];
+  totalAmount: number;
+  topCategory: string;
+  monthlyAverage: number;
+}
+
+export const handler: Handlers<ExpensesData> = {
   async GET(_, ctx) {
-    const API_URL = "http://localhost:8080/expenses/all"; // URL de la API
+    const API_URL = "http://localhost:8080/expenses/all";
 
     try {
       const response = await axios.get<Expense[]>(API_URL);
-      return ctx.render({ expenses: response.data });
+      const expenses = response.data || [];
+      
+      // Calcular total de gastos
+      const totalAmount = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+      
+      // Encontrar la categoría con mayor gasto
+      const categoryTotals = expenses.reduce((acc, expense) => {
+        const categoryName = expense.category?.name || "Sin categoría";
+        acc[categoryName] = (acc[categoryName] || 0) + expense.amount;
+        return acc;
+      }, {} as Record<string, number>);
+      
+      // Obtener la categoría con mayor gasto
+      let topCategory = "Ninguna";
+      let maxAmount = 0;
+      
+      Object.entries(categoryTotals).forEach(([category, amount]) => {
+        if (amount > maxAmount) {
+          topCategory = category;
+          maxAmount = amount;
+        }
+      });
+      
+      // Calcular promedio mensual (simplificado - dividimos por 12)
+      const monthlyAverage = totalAmount / 12;
+
+      return ctx.render({ 
+        expenses, 
+        totalAmount, 
+        topCategory, 
+        monthlyAverage 
+      });
     } catch (error) {
       console.error("Error al obtener los gastos:", error);
-      return ctx.render({ expenses: [] }); // Devuelve una lista vacía si hay un error
+      return ctx.render({
+        expenses: [],
+        totalAmount: 0,
+        topCategory: "Ninguna",
+        monthlyAverage: 0
+      });
     }
   },
 };
 
-export default function Expenses({ data }: PageProps<{ expenses: Expense[] }>) {
-  const { expenses } = data;
+export default function Expenses({ data }: PageProps<ExpensesData>) {
+  const { expenses, totalAmount, topCategory, monthlyAverage } = data;
+
+  // Formato para mostrar montos con dos decimales
+  const formatCurrency = (amount: number) => {
+    return amount.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    });
+  };
 
   return (
     <div class="flex h-screen overflow-hidden bg-gray-100 font-sans">
@@ -48,15 +100,21 @@ export default function Expenses({ data }: PageProps<{ expenses: Expense[] }>) {
         <div class="grid grid-cols-3 gap-4 mb-8">
           <div class="bg-gray-100 rounded-xl shadow-[3px_3px_6px_#d1d9e6,-2px_-2px_6px_#ffffff] p-6">
             <h2 class="text-gray-500 text-sm mb-2">Total Expenses</h2>
-            <p class="text-2xl font-semibold text-navy">$340</p>
+            <p class="text-2xl font-semibold text-red-600">
+              {formatCurrency(totalAmount)}
+            </p>
           </div>
           <div class="bg-gray-100 rounded-xl shadow-[3px_3px_6px_#d1d9e6,-2px_-2px_6px_#ffffff] p-6">
             <h2 class="text-gray-500 text-sm mb-2">Top Category</h2>
-            <p class="text-2xl font-semibold text-navy">Food</p>
+            <p class="text-2xl font-semibold text-navy">
+              {topCategory}
+            </p>
           </div>
           <div class="bg-gray-100 rounded-xl shadow-[3px_3px_6px_#d1d9e6,-2px_-2px_6px_#ffffff] p-6">
             <h2 class="text-gray-500 text-sm mb-2">Monthly Average</h2>
-            <p class="text-2xl font-semibold text-navy">$1,250</p>
+            <p class="text-2xl font-semibold text-navy">
+              {formatCurrency(monthlyAverage)}
+            </p>
           </div>
         </div>
 

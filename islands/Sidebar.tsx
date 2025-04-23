@@ -21,7 +21,7 @@ export default function Sidebar() {
   const menuItems = [
     { href: "/", label: "Dashboard", icon: "DashboardIcon" },
     { href: "/expenses", label: "Expenses", icon: "ExpensesIcon" },
-    { href: "/incomes", label: "Income", icon: "IncomesIcon" },
+    { href: "/incomes", label: "Incomes", icon: "IncomesIcon" },
     { href: "/categories", label: "Categories", icon: "CategoriesIcon" },
     { href: "/reports", label: "Reports", icon: "ReportsIcon" },
     { href: "/users", label: "Users", icon: "UsersIcon" },
